@@ -56,8 +56,12 @@ const fetchSecretValue = async (awsSecretPath, secretSelection) => {
   }
 };
 
-Handlebars.registerHelper('aws-secret', async function (awsSecretPath, secret) {
-  return await fetchSecretValue(awsSecretPath, secret);
+Handlebars.registerHelper('aws-secret', async function (awsSecretPath, secret, output="string") {
+  let value = await fetchSecretValue(awsSecretPath, secret);
+  if (output === "base64") {
+    value = new Buffer.from(value).toString('base64');
+  }
+  return value;
 });
 
 const main = async () => {
