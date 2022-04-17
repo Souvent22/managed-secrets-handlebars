@@ -22,3 +22,4 @@ docker-push : docker-login
 
 bump-patch : ## Bump patch version.
 	npm version patch -m 'Tagging for version %s'
+	echo "Push tags with git push --follow-tags"
