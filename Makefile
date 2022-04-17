@@ -17,7 +17,7 @@ docker-build : ## # Build the application's Docker image
 # Note that the local build tags as latest. We then re-tag latest 
 # to be the current commit hash and push that to ECR.
 docker-push : docker-login
-	docker tag ${DOCKER_REPO}:latest ${DOCKER_REPO}:${IMAGE_TAG}
+	docker tag ${DOCKER_REPO}:latest ${DOCKER_USERNAME}/${DOCKER_REPO}:${IMAGE_TAG}
 	docker push ${DOCKER_USERNAME}/${DOCKER_REPO}:${IMAGE_TAG}
 
 bump-patch : ## Bump patch version.
