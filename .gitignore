@@ -1,3 +1,7 @@
+# Local Make overrides
+local.mk
+.scratch
+
 # Logs
 logs
 *.log
