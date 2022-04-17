@@ -1,5 +1,5 @@
 # Local Make overrides
-local.mk
+locals.mk
 .scratch
 
 # Logs
