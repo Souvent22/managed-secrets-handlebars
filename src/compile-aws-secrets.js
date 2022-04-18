@@ -3,7 +3,7 @@ const File = require('fs');
 const Path = require('path');
 
 const hb = require('handlebars');
-const HandlebarsAsync = require('handlebars-async-helpers')(hb);
+const Handlebars = require('handlebars-async-helpers')(hb);
 const AWSSecretsManager = require('aws-sdk').SecretsManager;
 
 // Create a Secrets Manager client
