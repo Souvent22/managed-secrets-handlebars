@@ -19,10 +19,21 @@ NODE_ENV: {{aws-secret "my/aws/secrets/path/id" "NODE_ENV" "base64"}}
 NODE_ENV: {{aws-secret "my/aws/secrets/path/id" "NODE_ENV"}}
 ```
 
-```
+```shell
 docker run \
 -e AWS_ACCESS_KEY_ID=YOUR_AWS_ID \
 -e AWS_SECRET_ACCESS_KEY=YOUR_AWS_KEY \
 -v $(pwd)/my-secrets.tpl:/usr/src/app/templates/secrets.tpl \
 aws-secrets-handlebars:latests
+```
+
+You can also pipe your template file inline by using the env var
+`TEMPLATE_INLINE`.
+
+```shell
+cat $(PWD)/my-secrets.tpl | docker run -i \
+-e AWS_ACCESS_KEY_ID=YOUR_AWS_ID \
+-e AWS_SECRET_ACCESS_KEY=YOUR_AWS_KEY \
+-e TEMPLATE_INLINE=1 \
+aws-secrets-handlebars:latest
 ```

@@ -6,6 +6,16 @@ const hb = require('handlebars');
 const Handlebars = require('handlebars-async-helpers')(hb);
 const AWSSecretsManager = require('aws-sdk').SecretsManager;
 
+const getFileContents = () => {
+  if (process.env.TEMPLATE_INLINE) {
+    return File.readFileSync(0, 'utf-8');
+  }
+  else {
+    const filePath = Path.join(__dirname, 'templates/secrets.tpl');
+    return File.readFileSync(filePath, 'utf-8');
+  }
+}
+
 // Create a Secrets Manager client
 const client = new AWSSecretsManager({
   region: process.env.AWS_REGION || 'us-east-1',
@@ -66,8 +76,7 @@ Handlebars.registerHelper('aws-secret', async function (awsSecretPath, secret, o
 
 const main = async () => {
   // Compile the template
-  const filePath = Path.join(__dirname, 'templates/secrets.tpl');
-  const templateFileContents = File.readFileSync(filePath, 'utf-8');
+  const templateFileContents = getFileContents();
   const template = Handlebars.compile(templateFileContents);
   const output = template({});
   return output;
