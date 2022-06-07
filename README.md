@@ -1,4 +1,4 @@
-# AWS Secrets via Handlebars Template
+# [AWS Secrets via Handlebars Template](https://github.com/Souvent22/aws-secrets-handlebars)
 A docker container that fetches AWS secrets via handlebars templates.
 
 This work was done to ease the use of AWS Secrets in Helm deployments.
