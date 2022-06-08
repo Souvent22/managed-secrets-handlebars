@@ -40,3 +40,5 @@ cat $(PWD)/my-secrets.tpl | docker run -i \
 -e TEMPLATE_INLINE=1 \
 aws-secrets-handlebars:latest
 ```
+
+It is important to use `-i` when using `TEMPLATE_INLINE` so that the stdin is passed in.
