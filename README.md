@@ -1,4 +1,4 @@
-# AWS Secrets via Handlebars Template
+# [AWS Secrets via Handlebars Template](https://github.com/Souvent22/aws-secrets-handlebars)
 A docker container that fetches AWS secrets via handlebars templates.
 
 This work was done to ease the use of AWS Secrets in Helm deployments.
@@ -18,6 +18,9 @@ The `aws-secret` helper takes 2 required and 1 optional argument:
 NODE_ENV: {{aws-secret "my/aws/secrets/path/id" "NODE_ENV" "base64"}}
 NODE_ENV: {{aws-secret "my/aws/secrets/path/id" "NODE_ENV"}}
 ```
+
+The `base64` modifier transforms the output to `base64`, else the raw value of the secret value is placed. Usually with Kubernetes, one needs to put the value in `base64`, but other systems may only need/want the raw value of the secret.
+
 
 ```shell
 docker run \
