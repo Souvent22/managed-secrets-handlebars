@@ -1,20 +1,6 @@
 const Promisify = require('util').promisify;
-const File = require('fs');
-const Path = require('path');
 
-const hb = require('handlebars');
-const Handlebars = require('handlebars-async-helpers')(hb);
 const AWSSecretsManager = require('aws-sdk').SecretsManager;
-
-const getFileContents = () => {
-  if (process.env.TEMPLATE_INLINE) {
-    return File.readFileSync(0, 'utf-8');
-  }
-  else {
-    const filePath = Path.join(__dirname, 'templates/secrets.tpl');
-    return File.readFileSync(filePath, 'utf-8');
-  }
-}
 
 // Create a Secrets Manager client
 const client = new AWSSecretsManager({
@@ -22,15 +8,19 @@ const client = new AWSSecretsManager({
 });
 const getSecretValuePromise = Promisify(client.getSecretValue).bind(client);
 
+const cachedSecrets = [];
+
 // In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
 // See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
 // We rethrow the exception by default.
 const fetchSecretValue = async (awsSecretPath, secretSelection) => {
 
   try {
-    const resp = await getSecretValuePromise({ SecretId: awsSecretPath });
-    const secrets = JSON.parse(resp.SecretString);
-    return secrets[secretSelection];
+    if (! cachedSecrets[awsSecretPath]) {
+      const resp = await getSecretValuePromise({ SecretId: awsSecretPath });
+      cachedSecrets[awsSecretPath] = JSON.parse(resp.SecretString);
+    }
+    return cachedSecrets[awsSecretPath][secretSelection];
 
   } catch(err) {
     // Secrets Manager can't decrypt the protected secret text using the provided KMS key.
@@ -66,29 +56,4 @@ const fetchSecretValue = async (awsSecretPath, secretSelection) => {
   }
 };
 
-Handlebars.registerHelper('aws-secret', async function (awsSecretPath, secret, output="string") {
-  let value = await fetchSecretValue(awsSecretPath, secret);
-  if (output === "base64") {
-    value = new Buffer.from(value).toString('base64');
-  }
-  return value;
-});
-
-const main = async () => {
-  // Compile the template
-  const templateFileContents = getFileContents();
-  const template = Handlebars.compile(templateFileContents);
-  const output = template({});
-  return output;
-}
-
-// Preferred method
-(async () => {
-  const response = await main();
-  console.log(response);
-  process.exit(0);
-})().catch((e) => {
-  // Deal with the fact the chain failed
-  console.error(e);
-  process.exit(1);
-});
+module.exports = fetchSecretValue;
