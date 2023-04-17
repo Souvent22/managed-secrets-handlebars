@@ -42,14 +42,14 @@ docker run \
 -e AWS_ACCESS_KEY_ID=YOUR_AWS_ID \
 -e AWS_SECRET_ACCESS_KEY=YOUR_AWS_KEY \
 -v $(pwd)/my-secrets.tpl:/usr/src/app/templates/secrets.tpl \
-managed-secrets-handlebars:latests
+managed-secrets-handlebars:latest
 ```
 
 ```shell
 docker run \
 -e DOPPLER_TOKEN=TOKEN \
 -v $(pwd)/my-secrets.tpl:/usr/src/app/templates/secrets.tpl \
-managed-secrets-handlebars:latests
+managed-secrets-handlebars:latest
 ```
 
 You can also pipe your template file inline by using the env var
