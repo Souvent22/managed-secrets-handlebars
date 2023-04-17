@@ -29,7 +29,7 @@ COPY package.json ./
 
 RUN yarn install
 
-COPY src/compile-aws-secrets.js .
+COPY src/compile* .
 COPY src/sample.tpl ./templates/secrets.tpl
 
-ENTRYPOINT node compile-aws-secrets.js
+ENTRYPOINT node compile-secrets.js
