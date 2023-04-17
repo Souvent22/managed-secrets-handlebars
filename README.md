@@ -12,13 +12,15 @@ file in the helm deployment.
 
 ## Usage
 
-** AWS Secrets **
+**AWS Secrets**
+
 The `aws-secret` helper takes 2 required and 1 optional argument: 
 * Secret Id: The AWS secret ID.
 * Secret Path: The secret path. If it is just, then just the name of the key. Or, if is nested, then dot syntax. e.g. `.db.user`
 * Output: (optional) The output. This defaults to `string` and is not required. `base64` is also available.
 
-** Doppler Secrets **
+**Doppler Secrets**
+
 The `doppler-secret` helper takes 2 required and 1 optional argument: 
 * Secret Id: The Doppler path in the pattern of `project-name/env-name/config-name`
 * Secret Path: The specific secript in the config. E.g. `APP_ENV`
