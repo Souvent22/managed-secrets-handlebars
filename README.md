@@ -1,4 +1,4 @@
-# [Managed Secrets via Handlebars Template](https://github.com/Souvent22/aws-secrets-handlebars)
+# [Managed Secrets via Handlebars Template](https://github.com/Souvent22/managed-secrets-handlebars)
 A docker container that fetches Managed secrets via handlebars templates.
 
 Currently the following vendors are supported:
@@ -40,14 +40,14 @@ docker run \
 -e AWS_ACCESS_KEY_ID=YOUR_AWS_ID \
 -e AWS_SECRET_ACCESS_KEY=YOUR_AWS_KEY \
 -v $(pwd)/my-secrets.tpl:/usr/src/app/templates/secrets.tpl \
-aws-secrets-handlebars:latests
+managed-secrets-handlebars:latests
 ```
 
 ```shell
 docker run \
 -e DOPPLER_TOKEN=TOKEN \
 -v $(pwd)/my-secrets.tpl:/usr/src/app/templates/secrets.tpl \
-aws-secrets-handlebars:latests
+managed-secrets-handlebars:latests
 ```
 
 You can also pipe your template file inline by using the env var
@@ -58,7 +58,7 @@ cat $(PWD)/my-secrets.tpl | docker run -i \
 -e AWS_ACCESS_KEY_ID=YOUR_AWS_ID \
 -e AWS_SECRET_ACCESS_KEY=YOUR_AWS_KEY \
 -e TEMPLATE_INLINE=1 \
-aws-secrets-handlebars:latest
+managed-secrets-handlebars:latest
 ```
 
 It is important to use `-i` when using `TEMPLATE_INLINE` so that the stdin is passed in.
