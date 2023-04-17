@@ -12,6 +12,11 @@ FROM node:17-alpine3.15
 
 RUN apk add --no-cache openssh-client git python3 dumb-init autoconf automake gcc make musl-dev libtool g++
 
+# Doppler Support
+RUN wget -q -t3 'https://packages.doppler.com/public/cli/rsa.8004D9FF50437357.key' -O /etc/apk/keys/cli@doppler-8004D9FF50437357.rsa.pub && \
+    echo 'https://packages.doppler.com/public/cli/alpine/any-version/main' | tee -a /etc/apk/repositories && \
+    apk add doppler
+
 RUN mkdir -p -m 0600 ~/.ssh && \
     ssh-keyscan github.com >> ~/.ssh/known_hosts
 
