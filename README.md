@@ -2,8 +2,8 @@
 A docker container that fetches Managed secrets via handlebars templates.
 
 Currently the following vendors are supported:
-* AWS Secrets
-* Doppler 
+* [AWS Secrets](https://aws.amazon.com/secrets-manager/)
+* [Doppler ](https://www.doppler.com/)
 
 This work was done to ease the use of Managed Secrets in Helm deployments.
 Speicifcally, this is used during the deployment process to create 
