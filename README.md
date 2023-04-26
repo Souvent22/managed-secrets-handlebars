@@ -48,7 +48,7 @@ docker run \
 -e AWS_ACCESS_KEY_ID=YOUR_AWS_ID \
 -e AWS_SECRET_ACCESS_KEY=YOUR_AWS_KEY \
 -v $(pwd)/my-secrets.tpl:/usr/src/app/templates/secrets.tpl \
-managed-secrets-handlebars:latest
+souvent22/managed-secrets-handler:v0.0.7
 ```
 
 **Doppler**
@@ -57,7 +57,7 @@ managed-secrets-handlebars:latest
 docker run \
 -e DOPPLER_TOKEN=TOKEN \
 -v $(pwd)/my-secrets.tpl:/usr/src/app/templates/secrets.tpl \
-managed-secrets-handlebars:latest
+souvent22/managed-secrets-handler:v0.0.7
 ```
 
 You can also pipe your template file inline by using the env var
@@ -70,7 +70,7 @@ cat $(PWD)/my-secrets.tpl | docker run -i \
 -e AWS_ACCESS_KEY_ID=YOUR_AWS_ID \
 -e AWS_SECRET_ACCESS_KEY=YOUR_AWS_KEY \
 -e TEMPLATE_INLINE=1 \
-managed-secrets-handlebars:latest
+souvent22/managed-secrets-handler:v0.0.7
 ```
 
 It is important to use `-i` when using `TEMPLATE_INLINE` so that the stdin is passed in.
