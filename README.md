@@ -30,12 +30,18 @@ Doppler secrets uses and expects the env var `DOPPLER_TOKEN`
 
 **my-secrets.tpl**
 ```
-NODE_ENV: {{aws-secret "my/aws/secrets/path/id" "NODE_ENV" "base64"}}
 NODE_ENV: {{aws-secret "my/aws/secrets/path/id" "NODE_ENV"}}
 APP_ENV:  {{doppler-secret "project-name/env-name/config-name" "APP_ENV"}}
 ```
 
-The `base64` modifier transforms the output to `base64`, else the raw value of the secret value is placed. Usually with Kubernetes, one needs to put the value in `base64`, but other systems may only need/want the raw value of the secret.
+The `base64` modifier transforms the output to `base64`, else the raw value of the secret value is placed. Usually with Kubernetes, one needs to put the value in `base64`, but other systems may only need/want the raw value of the secret. Your template file should look like this to have the value output as base64:
+
+**my-secrets.tpl**
+```
+NODE_ENV: {{aws-secret "my/aws/secrets/path/id" "NODE_ENV" "base64"}}
+APP_ENV:  {{doppler-secret "project-name/env-name/config-name" "APP_ENV" "base64"}}
+```
+
 
 ```shell
 docker run \
