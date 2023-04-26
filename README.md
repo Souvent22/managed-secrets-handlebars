@@ -51,6 +51,8 @@ docker run \
 managed-secrets-handlebars:latest
 ```
 
+**Doppler**
+
 ```shell
 docker run \
 -e DOPPLER_TOKEN=TOKEN \
@@ -60,6 +62,8 @@ managed-secrets-handlebars:latest
 
 You can also pipe your template file inline by using the env var
 `TEMPLATE_INLINE`.
+
+**AWS**
 
 ```shell
 cat $(PWD)/my-secrets.tpl | docker run -i \
