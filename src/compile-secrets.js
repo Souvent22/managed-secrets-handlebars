@@ -32,12 +32,29 @@ Object.keys(secretVendorMapping).forEach((secretVendorNameId) => {
 });
 
 const getFileContents = () => {
+  const formatContent = function (content) {
+    let formattedLines = [];
+    // Use {{{}}}
+    content.split(/\r?\n/).forEach(line =>  {
+      let updatedLine = line;
+      if (line === '') {
+        return;
+      }
+      Object.keys(secretVendorMapping).forEach((prefix) => {
+        if (line.indexOf(`{{{${prefix}`) === -1) {
+          updatedLine = line.replace(`{{${prefix}`, `{{{${prefix}`).replace('}}', '}}}');
+        }
+      });
+      formattedLines.push(updatedLine);
+    });
+    return formattedLines.join("\n");
+  }
   if (process.env.TEMPLATE_INLINE) {
-    return File.readFileSync(0, 'utf-8');
+    return formatContent(File.readFileSync(0, 'utf-8'));
   }
   else {
     const filePath = Path.join(__dirname, 'templates/secrets.tpl');
-    return File.readFileSync(filePath, 'utf-8');
+    return formatContent(File.readFileSync(filePath, 'utf-8'));
   }
 }
 
