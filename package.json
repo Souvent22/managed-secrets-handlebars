@@ -1,6 +1,6 @@
 {
   "name": "aws-secrets-handlebars",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "main": "src/compile-secrets.js",
   "scripts": {
